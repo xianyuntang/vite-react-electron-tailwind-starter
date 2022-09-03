@@ -1,21 +1,20 @@
 /**
  * Build main process using ESBuild
  */
-import * as path from 'path'
-import * as fs from 'fs'
-import * as esbuild from 'esbuild'
-import { CompileError, mainPath, outDirMain, entryPath } from './common'
+import * as esbuild from "esbuild";
+import * as fs from "fs";
+import * as path from "path";
+
+import { CompileError, entryPath, mainPath, outDirMain } from "./common";
 
 function transformErrors(error: esbuild.BuildFailure): CompileError[] {
-  const errors = error.errors.map(
-    (e): CompileError => {
-      return {
-        location: e.location,
-        message: e.text
-      }
-    }
-  )
-  return errors
+  const errors = error.errors.map((e): CompileError => {
+    return {
+      location: e.location,
+      message: e.text,
+    };
+  });
+  return errors;
 }
 
 export default async (
@@ -24,9 +23,9 @@ export default async (
   buildComplete,
   notFoundTSConfig
 ) => {
-  const tsconfigPath = path.join(mainPath, 'tsconfig.json')
+  const tsconfigPath = path.join(mainPath, "tsconfig.json");
   if (!fs.existsSync(tsconfigPath)) {
-    notFoundTSConfig()
+    notFoundTSConfig();
   }
 
   try {
@@ -34,18 +33,18 @@ export default async (
       outdir: outDirMain,
       entryPoints: [entryPath],
       tsconfig: tsconfigPath,
-      format: 'cjs',
-      logLevel: 'info',
+      format: "cjs",
+      logLevel: "info",
       incremental: true,
-      platform: 'node',
+      platform: "node",
       sourcemap: false,
-      watch: false
-    })
-    buildComplete(outDirMain)
+      watch: false,
+    });
+    buildComplete(outDirMain);
   } catch (e) {
     if (!!e.errors && !!e.errors.length && e.errors.length > 0) {
-      const error = e as esbuild.BuildFailure
-      reportError(transformErrors(error))
+      const error = e as esbuild.BuildFailure;
+      reportError(transformErrors(error));
     }
   }
-}
+};
