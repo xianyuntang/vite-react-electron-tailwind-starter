@@ -1,4 +1,4 @@
-# Electron 18 + TypeScript 4 + Vite 2 + React 17 + Tailwind 3 starter
+# Electron 18 + TypeScript 4 + Vite 2 + React 18 + Tailwind 3 + Eslint starter
 
 
 
