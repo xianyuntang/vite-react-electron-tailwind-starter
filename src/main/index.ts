@@ -30,16 +30,16 @@ const createWindow = async () => {
 };
 
 app.whenReady().then(async () => {
-  createWindow();
+  await createWindow();
   app.on("window-all-closed", () => {
     if (process.platform !== "darwin") {
       app.quit();
     }
   });
 
-  app.on("activate", () => {
+  app.on("activate", async () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+      await createWindow();
     }
   });
 });
