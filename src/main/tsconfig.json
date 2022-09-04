@@ -9,6 +9,6 @@
       "@/main/*": ["main/*"]
     },
   },
-  "include": ["../main/**/*"],
+  "include": ["../main/**/*.ts"],
   "exclude": ["../renderer/**/*"]
 }
