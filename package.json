@@ -61,11 +61,8 @@
         ]
       },
       {
-        "from": "./dist",
-        "to": "./",
-        "filter": [
-          "index.html"
-        ]
+        "from": "./dist/renderer",
+        "to": "./renderer"
       },
       {
         "from": "./dist/main",

@@ -23,9 +23,8 @@ const createWindow = async () => {
   if (isDevelopment) {
     await browserWindow.loadURL(`http://localhost:3000`);
   } else {
-    await browserWindow.loadFile("./index.html");
+    await browserWindow.loadFile("./renderer/index.html");
   }
-
   browserWindow.webContents.openDevTools();
 };
 

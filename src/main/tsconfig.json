@@ -1,10 +1,9 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "target": "ES2018",
     "module": "CommonJS",
     "sourceMap": false,
-    "outDir": "../../dist",
+    "outDir": "../../dist/main",
     "baseUrl": "../../src",
     "paths": {
       "@/main/*": ["main/*"]
