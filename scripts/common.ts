@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import * as os from "os";
 import * as path from "path";
-
+import * as glob from "glob";
 export type WatchMain = (
   reportError: (errs: CompileError[]) => void,
   buildStart: () => void,
@@ -11,9 +11,8 @@ export type WatchMain = (
 
 export const srcPath = path.join(process.cwd(), "./src");
 export const mainPath = path.join(process.cwd(), "./src/main");
-export const outDir = path.join(process.cwd(), "./dist");
 export const outDirMain = path.join(process.cwd(), "./dist/main");
-export const entryPath = path.join(mainPath, "index.ts");
+export const entryPaths = glob.sync(path.join(mainPath, "**", "*.ts"));
 
 export const consoleMessagePrefix = "[script]";
 export const consoleViteMessagePrefix = "[vite]";
@@ -46,6 +45,7 @@ function repeatString(char: string, len: number): string {
 }
 
 function formatCompileError(error: CompileError): string {
+  console.log(error);
   const pathMessage =
     chalk.cyan(error.location.file) +
     ":" +

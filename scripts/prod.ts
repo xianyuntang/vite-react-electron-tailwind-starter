@@ -8,13 +8,14 @@ import * as path from "path";
 import {
   cannotFoundTSConfigMessage,
   CompileError,
-  entryPath,
+  entryPaths,
   finishMessageProd,
   formatDiagnosticsMessage,
   mainPath,
   outDirMain,
   startMessage,
 } from "./common";
+import * as glob from "glob";
 
 function reportError(errors: CompileError[]) {
   const reportingMessage = formatDiagnosticsMessage(errors);
@@ -71,13 +72,15 @@ async function esProd(
   try {
     await esbuild.build({
       outdir: outDirMain,
-      entryPoints: [entryPath],
+      entryPoints: entryPaths,
       tsconfig: tsconfigPath,
       format: "cjs",
+      bundle: true,
       logLevel: "info",
       incremental: true,
       platform: "node",
       sourcemap: false,
+      external: ["electron"],
       watch: false,
     });
     buildComplete(outDirMain);

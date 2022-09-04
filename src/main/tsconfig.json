@@ -3,11 +3,11 @@
     "target": "ES2018",
     "module": "CommonJS",
     "sourceMap": false,
-    "outDir": "../../dist/main",
+    "outDir": "../../dist",
     "baseUrl": "../../src",
     "paths": {
       "@/main/*": ["main/*"]
-    }
+    },
   },
   "include": ["../main/**/*"],
   "exclude": ["../renderer/**/*"]

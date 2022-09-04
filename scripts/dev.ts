@@ -2,15 +2,14 @@ import chalk from "chalk";
 import * as esbuild from "esbuild";
 import * as fs from "fs";
 import * as path from "path";
-
 import {
   cannotFoundTSConfigMessage,
   CompileError,
-  entryPath,
+  entryPaths,
   finishMessageDev,
   formatDiagnosticsMessage,
   mainPath,
-  outDir,
+  outDirMain,
   startMessage,
 } from "./common";
 import startElectron from "./run-electron";
@@ -73,31 +72,33 @@ async function esDev(
   notFoundTSConfig: { (): void; (): void }
 ) {
   const tsconfigPath = path.join(mainPath, "tsconfig.json");
+  console.log(tsconfigPath);
   if (!fs.existsSync(tsconfigPath)) {
     notFoundTSConfig();
   }
-
   try {
     await esbuild.build({
-      outdir: outDir,
-      entryPoints: [entryPath],
+      outdir: outDirMain,
+      entryPoints: entryPaths,
       tsconfig: tsconfigPath,
       format: "cjs",
+      bundle: true,
       logLevel: "silent",
       incremental: true,
       platform: "node",
       sourcemap: true,
+      external: ["electron"],
       watch: {
         onRebuild: (error) => {
           if (error) {
             reportError(transformErrors(error));
           } else {
-            buildComplete(outDir);
+            buildComplete(outDirMain);
           }
         },
       },
     });
-    buildComplete(outDir);
+    buildComplete(outDirMain);
   } catch (e) {
     if (!!e.errors && !!e.errors.length && e.errors.length > 0) {
       const error = e as esbuild.BuildFailure;
