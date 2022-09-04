@@ -28,6 +28,7 @@ module.exports = {
   rules: {
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-var-requires": "off",
     "react/react-in-jsx-scope": "off",
     "no-relative-import-paths/no-relative-import-paths": [
       "error",
